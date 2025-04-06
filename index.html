@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر سيد علي للفواكه الطازجة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #4caf50;
+            --light-green: #8bc34a;
+            --dark-green: #1b5e20;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', Arial, sans-serif;
+        }
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-bottom: 4px solid var(--dark-green);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 0.5rem 0 0;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        /* Main Container */
+        .container {
+            display: flex;
+            padding: 0 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 1.5rem;
+        }
+        /* Fruits Section */
+        .fruits-section {
+            flex: 7;
+        }
+        .section-title {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 0.8rem 1rem;
+            text-align: center;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            margin-bottom: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .fruits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        .fruit-card {
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .fruit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--light-green);
+        }
+        .fruit-img-container {
+            width: 100%;
+            height: 120px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            background-color: #f5f5f5;
+        }
+        .fruit-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        .fruit-card:hover .fruit-img {
+            transform: scale(1.05);
+        }
+        .fruit-name {
+            font-weight: 700;
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+        .fruit-price {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .quantity-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        .quantity-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        .quantity-btn:hover {
+            background-color: var(--dark-green);
+        }
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            margin: 0 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            padding: 0.3rem;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        /* Cart Section */
+        .cart-section {
+            flex: 3;
+            position: sticky;
+            top: 1rem;
+            align-self: flex-start;
+        }
+        .cart-container {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: var(--shadow);
+            max-height: 75vh;
+            overflow-y: auto;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+        .cart-item-info {
+            flex: 1;
+        }
+        .cart-item-name {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .cart-item-quantity {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .cart-item-price {
+            color: var(--primary-color);
+            font-weight: 700;
+            min-width: 80px;
+            text-align: left;
+        }
+        .remove-item {
+            color: #f44336;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            font-size: 1rem;
+        }
+        .customer-info {
+            margin-top: 1.5rem;
+        }
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .total-section {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #f5f5f5;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+        .total-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .total-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            gap: 1rem;
+        }
+        .btn {
+            padding: 0.8rem 1.2rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex: 1;
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        .btn-primary:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+        }
+        .btn-danger {
+            background-color: #f44336;
+            color: var(--white);
+        }
+        .btn-danger:hover {
+            background-color: #d32f2f;
+            transform: translateY(-2px);
+        }
+        /* Admin Panel */
+        .admin-panel {
+            margin-top: 2rem;
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .admin-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .admin-toggle {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .admin-toggle:hover {
+            background-color: var(--dark-green);
+        }
+        .admin-form {
+            display: none;
+            margin-top: 1.5rem;
+            border-top: 1px solid #eee;
+            padding-top: 1.5rem;
+        }
+        .admin-form.active {
+            display: block;
+        }
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .form-group {
+            flex: 1;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+        .file-upload-btn {
+            border: 1px dashed #ccc;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .file-upload-btn:hover {
+            border-color: var(--primary-color);
+            background-color: #f5f5f5;
+        }
+        .file-upload-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .preview-image {
+            max-width: 100px;
+            max-height: 100px;
+            display: block;
+            margin-top: 0.5rem;
+            border-radius: var(--border-radius);
+        }
+        .admin-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .admin-btn {
+            padding: 0.8rem 1.2rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex: 1;
+        }
+        .admin-btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        .admin-btn-primary:hover {
+            background-color: var(--dark-green);
+        }
+        .admin-btn-danger {
+            background-color: #f44336;
+            color: var(--white);
+        }
+        .admin-btn-danger:hover {
+            background-color: #d32f2f;
+        }
+        /* Fruits List in Admin */
+        .fruits-list {
+            margin-top: 1.5rem;
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        .fruits-list-header {
+            display: flex;
+            background-color: #f5f5f5;
+            padding: 0.8rem 1rem;
+            font-weight: 700;
+            border-bottom: 1px solid #eee;
+        }
+        .fruits-list-header div {
+            flex: 1;
+        }
+        .fruits-list-header .actions {
+            flex: 0.5;
+            text-align: center;
+        }
+        .fruits-list-item {
+            display: flex;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+            background-color: var(--white);
+        }
+        .fruits-list-item:last-child {
+            border-bottom: none;
+        }
+        .fruits-list-item div {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        .fruits-list-item .fruit-list-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+        .fruits-list-item .actions {
+            flex: 0.5;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .edit-btn, .delete-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .edit-btn {
+            color: var(--primary-color);
+        }
+        .delete-btn {
+            color: #f44336;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.3s;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .close {
+            color: #aaa;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .close:hover {
+            color: var(--text-color);
+        }
+        /* Invoice Styles */
+        .invoice {
+            width: 100%;
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        .invoice-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .invoice-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .invoice-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+        .invoice-meta {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        .invoice-customer {
+            flex: 1;
+        }
+        .invoice-customer h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        .invoice-date {
+            text-align: left;
+        }
+        .invoice-date p {
+            font-weight: 600;
+        }
+.invoice-items {
+    width: 100%;
+    border-collapse: collapse;
+    direction: rtl; /* Ensure text is aligned right-to-left */
+}
+        .invoice-items thead {
+            background-color: #f5f5f5;
+        }
+.invoice-items th, .invoice-items td {
+    padding: 1rem;
+    text-align: center; /* Center-align all cells */
+    border-bottom: 1px solid #eee;
+}
+.invoice-items th {
+    background-color: var(--light-green);
+    color: var(--dark-green);
+    font-weight: 700;
+}
+
+        .invoice-items tr:last-child td {
+            border-bottom: none;
+        }
+		.invoice-customer h3 {
+    color: var(--primary-color); /* Make customer name stand out */
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+.invoice-date p {
+    font-weight: 600;
+    color: #333;
+}
+.invoice-totals .total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+.invoice-totals .final-total {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+}
+
+        .invoice-totals {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        .total-row:last-child {
+            margin-bottom: 0;
+        }
+        .total-label {
+            font-weight: 600;
+        }
+        .total-value {
+            font-weight: 700;
+        }
+        .final-total {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #ddd;
+        }
+        .invoice-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+            color: #666;
+        }
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .canvas-container {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        canvas {
+            max-width: 100%;
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+        }
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            .fruits-section, .cart-section {
+                width: 100%;
+            }
+            .cart-section {
+                position: static;
+                margin-top: 2rem;
+            }
+            .fruits-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .fruits-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-apple-alt"></i> متجر سيد علي للفواكه الطازجة</h1>
+        <p>بغداد النهروان شارع العاب | خدمة التوصيل داخل النهروان 1000 دينار فقط</p>
+    </div>
+    <div class="container">
+        <div class="fruits-section">
+            <h2 class="section-title"><i class="fas fa-shopping-basket"></i> الفواكه المتاحة</h2>
+            <div class="fruits-grid" id="fruitsGrid">
+                <!-- Fruits will be added here dynamically -->
+            </div>
+            <div class="admin-panel">
+                <div class="admin-header">
+                    <div class="admin-title"><i class="fas fa-user-shield"></i> لوحة التحكم الإدارية</div>
+                    <button class="admin-toggle" id="adminToggle">
+                        <i class="fas fa-cog"></i> إدارة الفواكه
+                    </button>
+                </div>
+                <div class="admin-form" id="adminForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="adminPassword">كلمة المرور الإدارية</label>
+                            <input type="password" id="adminPassword" placeholder="أدخل كلمة المرور">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fruitAction">الإجراء</label>
+                            <select id="fruitAction">
+                                <option value="add">إضافة فاكهة جديدة</option>
+                                <option value="edit">تعديل فاكهة موجودة</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="fruitSelectGroup" style="display: none;">
+                            <label for="existingFruit">اختر فاكهة للتعديل</label>
+                            <select id="existingFruit">
+                                <!-- Will be populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newFruitName">اسم الفاكهة</label>
+                            <input type="text" id="newFruitName" placeholder="أدخل اسم الفاكهة">
+                        </div>
+                        <div class="form-group">
+                            <label for="newFruitPrice">السعر لكل كيلو (دينار)</label>
+                            <input type="number" id="newFruitPrice" placeholder="أدخل السعر">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>صورة الفاكهة</label>
+                            <div class="file-upload">
+                                <label class="file-upload-btn">
+                                    <i class="fas fa-cloud-upload-alt"></i> اختر صورة
+                                    <input type="file" id="newFruitImage" class="file-upload-input" accept="image/*">
+                                </label>
+                                <img id="imagePreview" class="preview-image" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="admin-actions">
+                        <button class="admin-btn admin-btn-primary" id="saveFruitBtn">
+                            <i class="fas fa-save"></i> حفظ
+                        </button>
+                        <button class="admin-btn admin-btn-danger" id="cancelFruitBtn">
+                            <i class="fas fa-times"></i> إلغاء
+                        </button>
+                    </div>
+                    <div class="fruits-list" id="fruitsListContainer" style="display: none;">
+                        <div class="fruits-list-header">
+                            <div>الصورة</div>
+                            <div>الاسم</div>
+                            <div>السعر</div>
+                            <div class="actions">الإجراءات</div>
+                        </div>
+                        <div id="fruitsList">
+                            <!-- Fruits list will be added here dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cart-section">
+            <h2 class="section-title"><i class="fas fa-shopping-cart"></i> سلة المشتريات</h2>
+            <div class="cart-container" id="cartContainer">
+                <div id="cartItems">
+                    <p style="text-align: center; color: #888; padding: 1rem;">لم يتم اختيار أي فواكه بعد</p>
+                </div>
+                <div class="customer-info">
+                    <div class="input-group">
+                        <label for="customerName">اسم المشتري</label>
+                        <input type="text" id="customerName" placeholder="أدخل اسم المشتري">
+                    </div>
+                    <div class="input-group">
+                        <label for="deliveryPoint">أقرب نقطة دالة</label>
+                        <input type="text" id="deliveryPoint" placeholder="أدخل أقرب نقطة دالة">
+                    </div>
+                    <div class="input-group">
+                        <label for="phoneNumber">رقم الهاتف</label>
+                        <input type="tel" id="phoneNumber" placeholder="أدخل رقم الهاتف">
+                    </div>
+                </div>
+                <div class="total-section">
+                    <div class="total-label">المجموع:</div>
+                    <div class="total-amount" id="totalAmount">0 دينار</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-danger" id="clearCart">
+                        <i class="fas fa-trash"></i> مسح السلة
+                    </button>
+                    <button class="btn btn-primary" id="generateInvoice">
+                        <i class="fas fa-file-invoice"></i> إصدار فاتورة
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Invoice Modal -->
+    <div id="invoiceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title"><i class="fas fa-file-invoice"></i> فاتورة المشتريات</div>
+                <span class="close">&times;</span>
+            </div>
+            <div class="invoice" id="invoicePrint">
+                <div class="invoice-header">
+                    <div class="invoice-title">متجر سيد علي للفواكه الطازجة</div>
+                    <div class="invoice-subtitle">بغداد النهروان شارع العاب</div>
+                    <div class="invoice-subtitle">خدمة التوصيل داخل النهروان 1000 دينار فقط</div>
+                </div>
+                <div class="invoice-meta">
+                    <div class="invoice-customer">
+                        <h3 id="invoiceCustomerName"></h3>
+                        <p id="invoiceDeliveryPoint"></p>
+                        <p id="invoicePhoneNumber"></p>
+                    </div>
+                    <div class="invoice-date">
+                        <p id="invoiceDate"></p>
+                    </div>
+                </div>
+<table class="invoice-items">
+    <thead>
+        <tr>
+            <th>الصنف</th>
+            <th>السعر</th>
+            <th>الكمية</th>
+            <th>المجموع</th>
+        </tr>
+    </thead>
+    <tbody id="invoiceItems">
+        <!-- Invoice items will be added here -->
+    </tbody>
+</table>
+                <div class="invoice-totals">
+                    <div class="total-row">
+                        <span class="total-label">المجموع:</span>
+                        <span class="total-value" id="invoiceSubtotal"></span>
+                    </div>
+                    <div class="total-row">
+                        <span class="total-label">رسوم التوصيل:</span>
+                        <span class="total-value" id="invoiceDelivery"></span>
+                    </div>
+                    <div class="total-row final-total">
+                        <span class="total-label">الإجمالي النهائي:</span>
+                        <span class="total-value" id="invoiceTotal"></span>
+                    </div>
+                </div>
+                <div class="invoice-footer">
+                    <p>شكراً لزيارتكم - نتمنى لكم يومًا سعيدًا</p>
+                </div>
+            </div>
+            <div class="canvas-container">
+                <p>لحفظ الفاتورة كصورة، انقر بزر الماوس الأيمن على الصورة أدناه واختر "حفظ الصورة"</p>
+                <canvas id="invoiceCanvas"></canvas>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="downloadInvoice">
+                    <i class="fas fa-download"></i> تحميل الفاتورة
+                </button>
+                <button class="btn btn-danger" id="closeInvoice">
+                    <i class="fas fa-times"></i> إغلاق
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        // Sample fruits data
+        let fruits = [];
+        let cart = [];
+        const ADMIN_PASSWORD = "248593"; // الرقم السري الجديد
+        // DOM elements
+        const fruitsGrid = document.getElementById('fruitsGrid');
+        const cartItems = document.getElementById('cartItems');
+        const totalAmount = document.getElementById('totalAmount');
+        const customerName = document.getElementById('customerName');
+        const deliveryPoint = document.getElementById('deliveryPoint');
+        const phoneNumber = document.getElementById('phoneNumber');
+        const clearCartBtn = document.getElementById('clearCart');
+        const generateInvoiceBtn = document.getElementById('generateInvoice');
+        const adminToggle = document.getElementById('adminToggle');
+        const adminForm = document.getElementById('adminForm');
+        const adminPassword = document.getElementById('adminPassword');
+        const fruitAction = document.getElementById('fruitAction');
+        const fruitSelectGroup = document.getElementById('fruitSelectGroup');
+        const existingFruit = document.getElementById('existingFruit');
+        const newFruitName = document.getElementById('newFruitName');
+        const newFruitPrice = document.getElementById('newFruitPrice');
+        const newFruitImage = document.getElementById('newFruitImage');
+        const imagePreview = document.getElementById('imagePreview');
+        const saveFruitBtn = document.getElementById('saveFruitBtn');
+        const cancelFruitBtn = document.getElementById('cancelFruitBtn');
+        const fruitsListContainer = document.getElementById('fruitsListContainer');
+        const fruitsList = document.getElementById('fruitsList');
+        const invoiceModal = document.getElementById('invoiceModal');
+        const closeModal = document.querySelector('.close');
+        const downloadInvoiceBtn = document.getElementById('downloadInvoice');
+        const closeInvoiceBtn = document.getElementById('closeInvoice');
+        const invoiceCanvas = document.getElementById('invoiceCanvas');
+        // Current fruit being edited
+        let currentFruitId = null;
+        let currentImageFile = null;
+
+// Load fruits from localStorage on page load
+function loadFruitsFromStorage() {
+    const savedFruits = localStorage.getItem('fruits');
+    if (savedFruits) {
+        fruits = JSON.parse(savedFruits);
+    }
+}
+
+        // Save fruits to localStorage
+        function saveFruitsToStorage() {
+            localStorage.setItem('fruits', JSON.stringify(fruits));
+        }
+
+        // Initialize the app
+        function init() {
+            loadFruitsFromStorage(); // Load fruits from localStorage
+            renderFruits();
+            renderFruitsList();
+            setupEventListeners();
+        }
+
+        // Render fruits in the grid
+// Render fruits in the grid
+function renderFruits() {
+    fruitsGrid.innerHTML = '';
+    if (fruits.length === 0) {
+        fruitsGrid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 2rem; color: #888;">لا توجد فواكه متاحة حالياً</p>';
+        return;
+    }
+    fruits.forEach(fruit => {
+        const cartItem = cart.find(item => item.id === fruit.id);
+        const quantity = cartItem ? cartItem.quantity : 0;
+        const fruitCard = document.createElement('div');
+        fruitCard.className = 'fruit-card';
+        fruitCard.innerHTML = `
+            <div class="fruit-img-container">
+                <img src="${fruit.image}" alt="${fruit.name}" class="fruit-img">
+            </div>
+            <div class="fruit-name">${fruit.name}</div>
+            <div class="fruit-price">${fruit.price} دينار/كيلو</div>
+            <div class="quantity-controls">
+                <button class="quantity-btn minus" data-id="${fruit.id}">-</button>
+                <input type="number" class="quantity-input" data-id="${fruit.id}" value="${quantity}" min="0" step="0.5">
+                <button class="quantity-btn plus" data-id="${fruit.id}">+</button>
+            </div>
+        `;
+        fruitsGrid.appendChild(fruitCard);
+    });
+}
+
+        // Render fruits list in admin panel
+        function renderFruitsList() {
+            fruitsList.innerHTML = '';
+            fruits.forEach(fruit => {
+                const listItem = document.createElement('div');
+                listItem.className = 'fruits-list-item';
+                listItem.innerHTML = `
+                    <div>
+                        <img src="${fruit.image}" alt="${fruit.name}" class="fruit-list-img">
+                        <span>${fruit.name}</span>
+                    </div>
+                    <div>${fruit.price} دينار</div>
+                    <div class="actions">
+                        <button class="edit-btn" data-id="${fruit.id}"><i class="fas fa-edit"></i></button>
+                        <button class="delete-btn" data-id="${fruit.id}"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                fruitsList.appendChild(listItem);
+            });
+            // Update existing fruit select
+            existingFruit.innerHTML = '';
+            fruits.forEach(fruit => {
+                const option = document.createElement('option');
+                option.value = fruit.id;
+                option.textContent = `${fruit.name} - ${fruit.price} دينار`;
+                existingFruit.appendChild(option);
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Quantity controls
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('plus') || e.target.closest('.plus')) {
+                    const btn = e.target.classList.contains('plus') ? e.target : e.target.closest('.plus');
+                    const fruitId = parseInt(btn.getAttribute('data-id'));
+                    const input = document.querySelector(`.quantity-input[data-id="${fruitId}"]`);
+                    input.stepUp();
+                    updateCart(fruitId, parseFloat(input.value));
+                } else if (e.target.classList.contains('minus') || e.target.closest('.minus')) {
+                    const btn = e.target.classList.contains('minus') ? e.target : e.target.closest('.minus');
+                    const fruitId = parseInt(btn.getAttribute('data-id'));
+                    const input = document.querySelector(`.quantity-input[data-id="${fruitId}"]`);
+                    input.stepDown();
+                    updateCart(fruitId, parseFloat(input.value));
+                }
+            });
+
+            // Quantity inputs
+            document.addEventListener('change', function(e) {
+                if (e.target.classList.contains('quantity-input')) {
+                    const fruitId = parseInt(e.target.getAttribute('data-id'));
+                    updateCart(fruitId, parseFloat(e.target.value));
+                }
+            });
+
+// Clear cart
+clearCartBtn.addEventListener('click', clearCart);
+
+// Generate invoice
+generateInvoiceBtn.addEventListener('click', showInvoice);
+
+// Admin toggle
+adminToggle.addEventListener('click', function () {
+    const enteredPassword = prompt('أدخل كلمة المرور الإدارية:');
+    if (enteredPassword !== ADMIN_PASSWORD) {
+        alert('كلمة المرور غير صحيحة');
+        return;
+    }
+    adminForm.classList.toggle('active');
+    fruitsListContainer.style.display = adminForm.classList.contains('active') ? 'block' : 'none';
+});
+
+// Fruit action change
+fruitAction.addEventListener('change', function () {
+    if (this.value === 'edit') {
+        fruitSelectGroup.style.display = 'block';
+    } else {
+        fruitSelectGroup.style.display = 'none';
+        resetFruitForm();
+    }
+});
+
+// Existing fruit select change
+existingFruit.addEventListener('change', function () {
+    const fruitId = parseInt(this.value);
+    const fruit = fruits.find(f => f.id === fruitId);
+    if (fruit) {
+        currentFruitId = fruitId;
+        newFruitName.value = fruit.name;
+        newFruitPrice.value = fruit.price;
+        imagePreview.src = fruit.image;
+        imagePreview.style.display = 'block';
+        currentImageFile = null;
+    }
+});
+
+// Image upload
+newFruitImage.addEventListener('change', function (e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            imagePreview.src = event.target.result;
+            imagePreview.style.display = 'block';
+            currentImageFile = file;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Save fruit
+saveFruitBtn.addEventListener('click', function () {
+    if (adminPassword.value !== ADMIN_PASSWORD) {
+        alert('كلمة المرور غير صحيحة');
+        return;
+    }
+    if (!newFruitName.value || !newFruitPrice.value) {
+        alert('الرجاء إدخال اسم الفاكهة والسعر');
+        return;
+    }
+    if (fruitAction.value === 'add' && !currentImageFile && !imagePreview.src) {
+        alert('الرجاء اختيار صورة للفاكهة');
+        return;
+    }
+
+    // Convert image to Base64 if a new image is selected
+    const saveFruit = (imageBase64) => {
+        if (fruitAction.value === 'add') {
+            // Add new fruit
+            const newFruit = {
+                id: fruits.length > 0 ? Math.max(...fruits.map(f => f.id)) + 1 : 1,
+                name: newFruitName.value,
+                price: parseInt(newFruitPrice.value),
+                image: imageBase64 || imagePreview.src // Use Base64 or existing image
+            };
+            fruits.push(newFruit);
+        } else {
+            // Edit existing fruit
+            const fruitIndex = fruits.findIndex(f => f.id === currentFruitId);
+            if (fruitIndex !== -1) {
+                fruits[fruitIndex].name = newFruitName.value;
+                fruits[fruitIndex].price = parseInt(newFruitPrice.value);
+                if (imageBase64) {
+                    fruits[fruitIndex].image = imageBase64; // Update image if new one is selected
+                }
+            }
+        }
+        saveFruitsToStorage(); // Save changes to localStorage
+        renderFruits();
+        renderFruitsList();
+        resetFruitForm();
+        alert('تم حفظ التغييرات بنجاح');
+    };
+
+    if (currentImageFile) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const imageBase64 = event.target.result; // Get Base64 string
+            saveFruit(imageBase64); // Pass Base64 to saveFruit
+        };
+        reader.readAsDataURL(currentImageFile); // Convert file to Base64
+    } else {
+        saveFruit(null); // No new image selected, use existing image
+    }
+});
+
+// Cancel fruit edit/add
+cancelFruitBtn.addEventListener('click', resetFruitForm);
+
+// Edit/Delete fruit buttons
+fruitsList.addEventListener('click', function (e) {
+    if (e.target.classList.contains('edit-btn') || e.target.closest('.edit-btn')) {
+        const btn = e.target.classList.contains('edit-btn') ? e.target : e.target.closest('.edit-btn');
+        const fruitId = parseInt(btn.getAttribute('data-id'));
+        const fruit = fruits.find(f => f.id === fruitId);
+        if (fruit) {
+            fruitAction.value = 'edit';
+            fruitSelectGroup.style.display = 'block';
+            existingFruit.value = fruitId;
+            currentFruitId = fruitId;
+            newFruitName.value = fruit.name;
+            newFruitPrice.value = fruit.price;
+            imagePreview.src = fruit.image;
+            imagePreview.style.display = 'block';
+            currentImageFile = null;
+            // Scroll to form
+            adminForm.scrollIntoView({ behavior: 'smooth' });
+        }
+    } else if (e.target.classList.contains('delete-btn') || e.target.closest('.delete-btn')) {
+        const btn = e.target.classList.contains('delete-btn') ? e.target : e.target.closest('.delete-btn');
+        const fruitId = parseInt(btn.getAttribute('data-id'));
+        if (confirm('هل أنت متأكد من حذف هذه الفاكهة؟')) {
+            fruits = fruits.filter(f => f.id !== fruitId);
+            saveFruitsToStorage(); // Save changes to localStorage
+            renderFruits();
+            renderFruitsList();
+            // Remove from cart if exists
+            cart = cart.filter(item => item.id !== fruitId);
+            renderCart();
+        }
+    }
+});
+
+// Modal controls
+closeModal.addEventListener('click', function () {
+    invoiceModal.style.display = 'none';
+});
+
+downloadInvoiceBtn.addEventListener('click', downloadInvoiceAsImage);
+
+closeInvoiceBtn.addEventListener('click', function () {
+    invoiceModal.style.display = 'none';
+});
+
+window.addEventListener('click', function (e) {
+    if (e.target === invoiceModal) {
+        invoiceModal.style.display = 'none';
+    }
+});
+}
+
+// Reset fruit form
+function resetFruitForm() {
+    fruitAction.value = 'add';
+    fruitSelectGroup.style.display = 'none';
+    newFruitName.value = '';
+    newFruitPrice.value = '';
+    newFruitImage.value = '';
+    imagePreview.src = '';
+    imagePreview.style.display = 'none';
+    currentImageFile = null;
+    currentFruitId = null;
+}
+
+// Update cart
+function updateCart(fruitId, quantity) {
+    const fruit = fruits.find(f => f.id === fruitId);
+    // Remove if quantity is 0
+    if (quantity <= 0) {
+        cart = cart.filter(item => item.id !== fruitId);
+    } else {
+        // Update or add to cart
+        const existingItem = cart.find(item => item.id === fruitId);
+        if (existingItem) {
+            existingItem.quantity = quantity;
+        } else {
+            cart.push({
+                id: fruitId,
+                name: fruit.name,
+                price: fruit.price,
+                quantity: quantity
+            });
+        }
+    }
+    renderCart();
+}
+
+// Render cart
+function renderCart() {
+    if (cart.length === 0) {
+        cartItems.innerHTML = '<p style="text-align: center; color: #888; padding: 1rem;">لم يتم اختيار أي فواكه بعد</p>';
+        totalAmount.textContent = '0 دينار';
+        return;
+    }
+
+    let cartHTML = '';
+    let total = 0;
+
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        cartHTML += `
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-quantity">${item.quantity} كيلو × ${item.price} دينار</div>
+                </div>
+                <div class="cart-item-price">${itemTotal} دينار</div>
+                <button class="remove-item" data-id="${item.id}"><i class="fas fa-times"></i></button>
+            </div>
+        `;
+    });
+
+    cartItems.innerHTML = cartHTML;
+    totalAmount.textContent = `${total} دينار`;
+
+    // Add event listeners to remove buttons
+    document.querySelectorAll('.remove-item').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const fruitId = parseInt(this.getAttribute('data-id'));
+            updateCart(fruitId, 0);
+            // Reset quantity input
+            const input = document.querySelector(`.quantity-input[data-id="${fruitId}"]`);
+            if (input) input.value = '0';
+        });
+    });
+}
+
+// Clear cart
+function clearCart() {
+    if (cart.length === 0) {
+        alert('السلة فارغة بالفعل');
+        return;
+    }
+    if (confirm('هل أنت متأكد من مسح سلة المشتريات؟')) {
+        cart = [];
+        renderCart();
+        // Reset all quantity inputs
+        document.querySelectorAll('.quantity-input').forEach(input => {
+            input.value = '0';
+        });
+    }
+}
+
+// Show invoice
+function showInvoice() {
+    if (cart.length === 0) {
+        alert('السلة فارغة، الرجاء إضافة بعض الفواكه أولاً');
+        return;
+    }
+    if (!customerName.value) {
+        alert('الرجاء إدخال اسم المشتري');
+        return;
+    }
+
+    // Calculate totals
+    let subtotal = 0;
+    let deliveryFee = 1000;
+    let invoiceHTML = '';
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        invoiceHTML += `
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.price} دينار</td>
+                <td>${item.quantity} كيلو</td>
+                <td>${itemTotal} دينار</td>
+            </tr>
+        `;
+    });
+
+    const total = subtotal + deliveryFee;
+
+    // Set invoice details
+    document.getElementById('invoiceCustomerName').innerHTML = `<span style="color: var(--primary-color); font-weight: bold;">اسم المشتري:</span> ${customerName.value}`;
+    document.getElementById('invoiceDeliveryPoint').textContent = deliveryPoint.value ? `نقطة الدالة: ${deliveryPoint.value}` : '';
+    document.getElementById('invoicePhoneNumber').textContent = phoneNumber.value ? `رقم الهاتف: ${phoneNumber.value}` : '';
+    document.getElementById('invoiceItems').innerHTML = invoiceHTML;
+    document.getElementById('invoiceSubtotal').textContent = `${subtotal} دينار`;
+    document.getElementById('invoiceDelivery').textContent = `${deliveryFee} دينار`;
+    document.getElementById('invoiceTotal').textContent = `${total} دينار`;
+
+    // Set current date
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('invoiceDate').textContent = now.toLocaleDateString('ar-EG', options);
+
+    // Show modal
+    invoiceModal.style.display = 'block';
+
+    // Generate canvas after a short delay to ensure modal is fully rendered
+    setTimeout(generateInvoiceCanvas, 500);
+}
+
+// Generate invoice canvas
+function generateInvoiceCanvas() {
+    const invoiceElement = document.getElementById('invoicePrint');
+    html2canvas(invoiceElement, {
+        scale: 2,
+        logging: false,
+        useCORS: true,
+        allowTaint: true
+    }).then(canvas => {
+        invoiceCanvas.width = canvas.width;
+        invoiceCanvas.height = canvas.height;
+        const ctx = invoiceCanvas.getContext('2d');
+        ctx.drawImage(canvas, 0, 0);
+    });
+}
+
+// Download invoice as image
+function downloadInvoiceAsImage() {
+    const link = document.createElement('a');
+    link.download = `فاتورة_${customerName.value}_${new Date().toISOString().slice(0, 10)}.png`;
+    link.href = invoiceCanvas.toDataURL('image/png');
+    link.click();
+}
+
+        // Initialize the app
+        init();
+    </script>
+</body>
+</html>
